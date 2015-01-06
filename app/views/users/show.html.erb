@@ -1,0 +1,42 @@
+<h1 class="header">Classes</h1>
+
+<div>
+<table class="table">
+<thead>
+	<tr class="tr">
+		<th>Name</th>
+		<th>Schoolyear</th>
+	</tr>
+</thead>
+<% @user.courses.each do |c| %>
+<%= hidden_field_tag :user_id, @user.id %>
+	<tr>
+	<td><%= c.name %></td>
+	<td><%= c.schoolyear %></td>
+	<td><%= link_to 'Show', courses_show_path(:course => c.id) %></td>
+	<!-- <td><%= link_to 'Edit', courses_edit_path(:course => c.id) %></td>
+	<td><%= link_to 'Delete', courses_destroy_path(:course => c.id), method: :delete, data: {confirm: 'Are you sure?'} %></td>  -->
+	</tr>
+<% end %>
+</table>
+</div>
+
+<div>
+	<!-- here we explicitly tell rails where we want this form to go: the new_course action on the users controller -->
+<%= form_for( @course, :url => {:action => :new_course, :controller => :users} ) do |f| %>
+
+<!-- we add the hidden field tag because it is a way to identify a user in our new_course action -->
+<%= hidden_field_tag :user_id, @user.id %>
+<div class="field">
+	<%= f.label :name %><br>
+	<%= f.text_field :name %>
+</div>
+<div class="field">
+	<%= f.label :schoolyear %><br>
+	<%= f.text_field :schoolyear %>
+</div><br>
+<div class="actions">
+	<%= f.submit "Add Class" %> 
+</div>
+<% end %>
+</div>

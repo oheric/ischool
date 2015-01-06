@@ -1,0 +1,51 @@
+<h1 class="header">Roster for <%= @course.name%></h1>
+
+<div>
+<table class="table">
+<thead>
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Grade</th>
+		<th>Notes</th>
+	</tr>
+</thead>
+<% @course.students.each do |s| %>
+	<tr>
+	<td><%= s.firstname %></td>
+	<td><%= s.lastname %></td>
+	<td><%= s.grade %></td>
+	<td><%= s.notes %></td>
+	<td><%= link_to 'More', students_show_path(:student => s.id) %></td>
+	</tr>
+<% end %>
+</table>
+</div>
+
+<div>
+	<!-- here we explicitly tell rails where we want this form to go: the new_course action on the users controller -->
+<%= form_for( @student, :url => {:action => :new_student, :controller => :courses} ) do |f| %>
+
+<!-- we add the hidden field tag because it is a way to identify a user in our new_course action -->
+<%= hidden_field_tag :course_id, @course.id %>
+<div class="field">
+	<%= f.label :first_name %><br>
+	<%= f.text_field :firstname %>
+</div>
+<div class="field">
+	<%= f.label :last_name %><br>
+	<%= f.text_field :lastname %>
+</div>
+<div class="field">
+	<%= f.label :grade %><br>
+	<%= f.text_field :grade %>
+</div>
+<div class="field">
+	<%= f.label :notes %><br>
+	<%= f.text_area :notes %>
+</div></br>
+<div class="actions">
+	<%= f.submit "Add Student"%> 
+</div>
+<% end %>
+</div>

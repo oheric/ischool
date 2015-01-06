@@ -1,0 +1,31 @@
+<h1 class="header">Visual Records</h1>
+
+<div>
+<table class="table">
+<thead>
+	<tr>
+		<th><%= @assignment.name %></th>
+	</tr>
+</thead>
+<% @assignment.photos.each do |p| %>
+	<tr>
+	<td><%= image_tag p.image.url(:medium) %></td>
+	</tr>
+<% end %>
+</table>
+</div>
+
+<div>
+	<!-- here we explicitly tell rails where we want this form to go: the new_course action on the users controller -->
+<%= form_for( @photo, :url => {:action => :new_photo, :controller => :assignments} ) do |f| %>
+
+<!-- we add the hidden field tag because it is a way to identify a user in our new_course action -->
+<%= hidden_field_tag :assignment_id, @assignment.id %>
+<div class="field">
+	<%= f.file_field :image %><br>
+	<%= f.submit "Add Visual Record" %>
+</div>
+
+</div>
+<% end %>
+</div>

@@ -1,0 +1,39 @@
+<h1 class="header">Assignments for <%= @student.firstname%> <%=@student.lastname%></h1>
+
+<div>
+<table class="table">
+<thead>
+	<tr>
+		<th>Name</th>
+		<th>Grade</th>
+	</tr>
+</thead>
+<% @student.assignments.each do |a| %>
+	<tr>
+	<td><%= a.name %></td>
+	<td><%= a.grade %></td>
+	<td><%= link_to 'Visual Records', assignments_show_path(:assignment => a.id) %></td>
+	</tr>
+<% end %>
+</table>
+</div>
+
+<div>
+	<!-- here we explicitly tell rails where we want this form to go: the new_course action on the users controller -->
+<%= form_for( @assignment, :url => {:action => :new_assignment, :controller => :students} ) do |f| %>
+
+<!-- we add the hidden field tag because it is a way to identify a user in our new_course action -->
+<%= hidden_field_tag :student_id, @student.id %>
+<div class="field">
+	<%= f.label :name %><br>
+	<%= f.text_field :name %>
+</div>
+<div class="field">
+	<%= f.label :grade %><br>
+	<%= f.text_field :grade %>
+</div></br>
+<div class="actions">
+	<%= f.submit %> 
+</div>
+<% end %>
+</div>
