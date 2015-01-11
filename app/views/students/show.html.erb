@@ -1,7 +1,10 @@
-<h1 class="header">Assignments for <%= @student.firstname%> <%=@student.lastname%></h1>
+<meta charset="utf-8">
+<h1 class="header"><%= @student.firstname%> <%=@student.lastname%></h1>
+
+<%= render 'd3' %>
 
 <div>
-<table class="table">
+<table class="table table-bordered">
 <thead>
 	<tr>
 		<th>Name</th>
@@ -18,7 +21,7 @@
 </table>
 </div>
 
-<div>
+<div class="addform">
 	<!-- here we explicitly tell rails where we want this form to go: the new_course action on the users controller -->
 <%= form_for( @assignment, :url => {:action => :new_assignment, :controller => :students} ) do |f| %>
 

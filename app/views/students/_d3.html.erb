@@ -1,0 +1,65 @@
+<style type="text/css">
+body{
+	text-align: center;
+}
+</style>
+
+<% d3array = [] %>
+<% @student.assignments.each do |a| %>
+<% d3array.push(a.grade.to_i) %>
+<% end %>
+
+<script>
+
+
+var w = 500;
+var h = 100;
+var barPadding = 1;
+
+var d3arrayjs = <%=d3array %>; 
+console.log(d3arrayjs);
+
+var svg = d3.select("body")
+.append("svg")
+.attr("width", w)
+.attr("height", h);
+
+svg.selectAll("rect")
+.data(d3arrayjs)
+.enter()
+.append("rect")
+.attr("x", function(d, i){
+	return i * (w / d3arrayjs.length);
+})
+.attr("y", function(d){
+	return h - d;
+})
+.attr("width", w / d3arrayjs.length - barPadding)
+.attr("height", function(d){
+	return d;
+})
+.attr("fill", function(d){
+	return "rgb(" + (d * 10) + ",0,0)";
+});
+
+svg.selectAll("text")
+.data(d3arrayjs)
+.enter()
+.append("text")
+.text(function(d){
+	return d;
+})
+.attr("text-anchor", "middle")
+.attr("x", function(d, i){
+	return i * (w / d3arrayjs.length) + (w / d3arrayjs.length - barPadding) / 2;
+})
+.attr("y", function(d){
+	return h - d + 14;
+})
+.attr("font-family", "Helvetica")
+.attr("font-size", "14px")
+.attr("fill", "white");
+
+
+
+</script>

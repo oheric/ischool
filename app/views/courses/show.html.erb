@@ -1,7 +1,7 @@
 <h1 class="header">Roster for <%= @course.name%></h1>
 
 <div>
-<table class="table">
+<table class="table table-bordered">
 <thead>
 	<tr>
 		<th>First Name</th>
@@ -22,7 +22,7 @@
 </table>
 </div>
 
-<div>
+<div class="addform">
 	<!-- here we explicitly tell rails where we want this form to go: the new_course action on the users controller -->
 <%= form_for( @student, :url => {:action => :new_student, :controller => :courses} ) do |f| %>
 

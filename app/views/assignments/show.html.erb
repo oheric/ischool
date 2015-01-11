@@ -21,11 +21,10 @@
 
 <!-- we add the hidden field tag because it is a way to identify a user in our new_course action -->
 <%= hidden_field_tag :assignment_id, @assignment.id %>
-<div class="field">
+<div class="photofield">
 	<%= f.file_field :image %><br>
 	<%= f.submit "Add Visual Record" %>
 </div>
 
-</div>
 <% end %>
 </div>
